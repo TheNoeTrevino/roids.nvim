@@ -1,5 +1,6 @@
 ;  extends
 
+; `value' param in the `@Query` annotation
 ; @Modifying
 ; @Query(
 ;   value = """
@@ -23,6 +24,13 @@
   (#set! injection.language "sql")
 )
 
+
+; Annotation of static strings
+; // language: sql
+; public static final String userQuery = """
+;   SELECT u.id, u.name, u.email
+;   FROM users u
+; """;
 (
   (line_comment) @injection.language
   .
@@ -36,12 +44,3 @@
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
-
-(local_variable_declaration
-  declarator: (variable_declarator
-    value: (string_literal
-      (multiline_string_fragment) @injection.content
-    )
-  )
-) @declaration
-
