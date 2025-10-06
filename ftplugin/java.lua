@@ -13,20 +13,22 @@
 --   • *vim.treesitter.list_directives()*     -> |vim.treesitter.query.list_directives()|
 --   • *vim.treesitter.query.get_range()*     -> |vim.treesitter.get_range()|
 --   • *vim.treesitter.query.get_node_text()* -> |vim.treesitter.get_node_text()|
+---@type boolean
+local debugging = false
 
 local ts = vim.treesitter
-local log = vim.notify
+local log = debugging or vim.notify
 
 local comment_query = ts.query.parse(
-  "java",
-  [[
+	"java",
+	[[
   (line_comment) @capturegroup
   ]]
 )
 
 local string_query = ts.query.parse(
-  "java",
-  [[
+	"java",
+	[[
   (string_fragment) @capturegroup
   (multiline_string_fragment) @capturegroup
   ]]
@@ -34,8 +36,8 @@ local string_query = ts.query.parse(
 
 -- get all the finals after a comment
 local constant_query = ts.query.parse(
-  "java",
-  [[
+	"java",
+	[[
     ((line_comment) 
     .
     (constant_declaration 
@@ -70,49 +72,52 @@ local tree = ts.get_parser():parse()[1]
 --```
 --
 -- If you pass in the `constant_delaration` node and `multiline_string_fragment`,
--- you will get @capture
+-- you will get @capture node
 local function find_type_in_tree(node, type)
-  if not node then
-    return
-  end
+	if not node then
+		return
+	end
 
-  if node and node:type() == type then
-    return ts.get_node_text(node, vim.api.nvim_get_current_buf())
-  end
+	if node and node:type() == type then
+		return ts.get_node_text(node, vim.api.nvim_get_current_buf())
+	end
 
-  if node then
-    for i = 0, node:child_count() - 1 do
-      local found = find_type_in_tree(node:child(i), type)
-      if found then
-        return found
-      end
-    end
-  end
+	if node then
+		for i = 0, node:child_count() - 1 do
+			local found = find_type_in_tree(node:child(i), type)
+			if found then
+				return found
+			end
+		end
+	end
 end
 
 ---@param node_type string
 ---@param child_node_type string
 ---@param langs[string]
 local function possible_injections(node_type, child_node_type, langs)
-  for _, node, _ in constant_query:iter_captures(tree:root(), 0) do
-    local prev_node = node:prev_sibling()
+	for _, node, _ in constant_query:iter_captures(tree:root(), 0) do
+		local prev_node = node:prev_sibling()
 
-    if prev_node and prev_node:type() == node_type then
-      local prev_text = ts.get_node_text(prev_node, vim.api.nvim_get_current_buf())
-      for _, lang in ipairs(langs) do
-        if prev_text and string.find(prev_text, "language: " .. lang) then
-          local result_text = find_type_in_tree(node, child_node_type)
-          if result_text then
-            log("found " .. lang .. " text : " .. result_text)
-            -- make a function that takes in a node and the text, then replaces
-            -- the node text with the new text from our formatters
-          else
-            log("none found")
-          end
-        end
-      end
-    end
-  end
+		if prev_node and prev_node:type() == node_type then
+			local prev_text = ts.get_node_text(prev_node, vim.api.nvim_get_current_buf())
+			for _, lang in ipairs(langs) do
+				if prev_text and string.find(prev_text, "language: " .. lang) then
+					local result_text = find_type_in_tree(node, child_node_type)
+					if result_text then
+						log("found " .. lang .. " text : " .. result_text)
+					-- make a function that takes in a node and the text, then replaces
+					-- the node text with the new text from our formatters
+					else
+						log("none found")
+					end
+				end
+			end
+		end
+	end
 end
 
-possible_injections("line_comment", "multiline_string_fragment", { "sql", "python" })
+if debugging == true then
+	log("Debugging is on for roids.nvim")
+	possible_injections("line_comment", "multiline_string_fragment", { "sql", "python" })
+end
