@@ -44,3 +44,23 @@
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
+
+
+; // language: sql
+; private static final String test = """
+;   select * 
+;   from table
+; """;
+(
+  (line_comment) @injection.language
+  .
+  (field_declaration 
+    (modifiers) 
+    type: (type_identifier) 
+    declarator: (variable_declarator 
+      name: (identifier) 
+      value: (string_literal 
+        (multiline_string_fragment) @injection.content)))
+  (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
+  (#set! priority 201)
+)
