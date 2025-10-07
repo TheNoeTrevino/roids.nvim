@@ -50,7 +50,7 @@ local constant_query = ts.query.parse(
   ]]
 )
 
-local tree = ts.get_parser():parse()[1]
+-- local tree = ts.get_parser():parse()[1]
 
 ---@param node TSNode?
 ---@param type string
@@ -117,7 +117,7 @@ local function possible_injections(node_type, child_node_type, langs)
 	end
 end
 
-if debugging == true then
-	log("Debugging is on for roids.nvim")
-	possible_injections("line_comment", "multiline_string_fragment", { "sql", "python" })
-end
+-- if debugging == true then
+-- 	log("Debugging is on for roids.nvim")
+-- 	possible_injections("line_comment", "multiline_string_fragment", { "sql", "python" })
+-- end
