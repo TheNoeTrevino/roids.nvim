@@ -64,3 +64,17 @@
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
+
+
+(
+  (line_comment) @injection.language
+  .
+  (local_variable_declaration 
+    type: (type_identifier) 
+    declarator: (variable_declarator 
+      name: (identifier) 
+      value: (string_literal 
+        (multiline_string_fragment) @injection.content))) 
+  (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
+  (#set! priority 201)
+)
