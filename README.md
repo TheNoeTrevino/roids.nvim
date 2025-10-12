@@ -17,12 +17,12 @@ return {
 
 Annotate your string variable declaration with `language: {myLang}`
 ``` python
-# language: sql
-userQuery = """
-    SELECT *
-    FROM myTablej
-    JOIN thisTable 
-    ON 1 = 1;
+# language: html
+htmlContent = """
+    <div class="container">
+        <h1>Hello World</h1>
+        <p>This is an HTML example</p>
+    </div>
 """
 ```
 
@@ -46,13 +46,20 @@ Supported Scenarios
 <summary>Future Plans</summary>
 
 ## Future Plans
+
 - Add formatting into the injected language using the formatters mason has installed
+
 - Increase filetype support
+- [-] Java
+- [-] Go
 - [ ] CSharp
-- [ ] Typescript
-- [ ] Javascript
-- [ ] Go
+- [-] Typescript/TSX
+- [ ] Javascript/JSX
+- [ ] Make use of treesitter's `inherits` to reuse queries across fts. Like ts and tsx/js and jsx
 
 </details>
   
 This plugin is inspired by the [Jetbrains language injection.](https://www.jetbrains.com/help/idea/using-language-injections.html) 
+
+> [!NOTE]
+> [-] means that a task is 'In Progress'
