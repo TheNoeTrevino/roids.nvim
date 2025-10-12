@@ -60,3 +60,6 @@ Supported Scenarios
 </details>
   
 This plugin is inspired by the [Jetbrains language injection.](https://www.jetbrains.com/help/idea/using-language-injections.html) 
+
+> [!NOTE]
+> [-] means that a task is 'In Progress'
