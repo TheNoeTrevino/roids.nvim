@@ -55,6 +55,7 @@ Supported Scenarios
 - [ ] CSharp
 - [ ] Typescript
 - [ ] Javascript
+- [ ] Make use of treesitter's `extends` to reuse queries across fts. Like ts and tsx
 
 </details>
   
