@@ -66,6 +66,15 @@
 )
 
 
+
+; // language: sql
+; public PaymentResponseDTO checkoutProducts(PaymentRequestDTO paymentRequest) {
+;
+;   // language: sql
+;   String thisVar = """
+;   select * from schema.user
+;   """;
+
 (
   (line_comment) @injection.language
   .
@@ -75,6 +84,23 @@
       name: (identifier) 
       value: (string_literal 
         (multiline_string_fragment) @injection.content))) 
+  (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
+  (#set! priority 201)
+)
+
+
+; // language: sql
+; public static final String userQuer = "SELECT u.id, u.name, u.email FROM users u";
+(
+  (line_comment) @injection.language
+  .
+  (field_declaration 
+    (modifiers) 
+    type: (type_identifier) 
+    declarator: (variable_declarator 
+      name: (identifier) 
+      value: (string_literal 
+        (string_fragment) @injection.content)))
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
