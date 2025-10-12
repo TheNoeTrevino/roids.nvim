@@ -45,3 +45,24 @@
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
+
+
+
+; // language: sql
+; const myStaticString = `
+; select * from users
+;`
+(
+  (comment) @injection.language
+  .
+  (const_declaration 
+    (const_spec 
+      name: (identifier) 
+      value: (expression_list 
+        (raw_string_literal 
+          (raw_string_literal_content) @injection.content ))))
+  (#set! injection.include-children)
+  (#set! injection.combined)
+  (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
+  (#set! priority 201)
+)
