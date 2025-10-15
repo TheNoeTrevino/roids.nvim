@@ -50,11 +50,11 @@ Supported Scenarios
 - Add formatting into the injected language using the formatters mason has installed
 
 - Increase filetype support
-- [-] Java
+- [X] Java
 - [-] Go
 - [ ] CSharp
-- [-] Typescript/TSX
-- [ ] Javascript/JSX
+- [X] Typescript/TSX
+- [X] Javascript/JSX
 - [ ] Make use of treesitter's `inherits` to reuse queries across fts. Like ts and tsx/js and jsx
 
 </details>
