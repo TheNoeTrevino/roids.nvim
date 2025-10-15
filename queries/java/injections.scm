@@ -41,6 +41,7 @@
       name: (identifier)
       value: (string_literal
         (multiline_string_fragment) @injection.content)))
+  (#set! injection.combined)
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
@@ -61,6 +62,7 @@
       name: (identifier) 
       value: (string_literal 
         (multiline_string_fragment) @injection.content)))
+  (#set! injection.combined)
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
@@ -84,6 +86,7 @@
       name: (identifier) 
       value: (string_literal 
         (multiline_string_fragment) @injection.content))) 
+  (#set! injection.combined)
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
@@ -101,6 +104,7 @@
       name: (identifier) 
       value: (string_literal 
         (string_fragment) @injection.content)))
+  (#set! injection.combined)
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)
 )
