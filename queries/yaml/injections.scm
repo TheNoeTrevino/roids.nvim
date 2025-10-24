@@ -12,6 +12,20 @@
       ; Start parse only after block indicator
       (#offset! @injection.content 0 1 0 0))))
 
+( 
+  (comment) @injection.language
+  (#gsub! @injection.language "#%s*language:%s*([%w%p]+)%s*" "%1")
+  .
+  (block_node 
+    (block_mapping 
+      (block_mapping_pair 
+        key: (flow_node 
+          (plain_scalar 
+            (string_scalar))) 
+        value: (block_node 
+          (block_scalar) @injection.content
+          (#offset! @injection.content 0 1 0 -1))))))
+
 ((comment) @injection.language
   (#gsub! @injection.language "#%s*language:%s*([%w%p]+)%s*" "%1")
   value: (block_node
