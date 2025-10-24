@@ -2,7 +2,7 @@
 
 ; Support Idea-style injection: # language:yaml
 
-; Injaction for block_scalar queries
+; Injection for block_scalar queries
 ((comment) @injection.language
   (#gsub! @injection.language "#%s*language:%s*([%w%p]+)%s*" "%1")
   .
@@ -22,7 +22,7 @@
           (block_scalar) @injection.content
           (#offset! @injection.content 0 1 0 0))))))
 
-; Injection for unquoted string scalsrs
+; Injection for unquoted string scalars
 ((comment) @injection.language
   (#gsub! @injection.language "#%s*language:%s*([%w%p]+)%s*" "%1")
   .

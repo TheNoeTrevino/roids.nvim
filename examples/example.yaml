@@ -1,41 +1,42 @@
 ---
-# language:python
+# language: python
 python: |
   foo = 'asdafsaa'
   print(f'{foo}')
 
+# language: python
 python1: |
   foo = 'asdafsaa'
   print(f'{foo}')
 
 healthcheck1:
-  # language:python
+  # language: python
   lvl2_block_node1: |
     print(f'bar{foo}')
-  # language:python
+  # language: python
   lvl2_block_node2: >
     print(f'bar{foo}')
 
 ---
 bar: foo
 
-# language:sh
+# language: sh
 lvl1_double_quoted: "wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1"
 
-# language:sh
-lvl1_single_quoted: 'wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1'
+# language: sh
+lvl1_single_quoted: "wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1"
 
-# language:sh
+# language: sh
 lvl1_unquoted: wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1
 
 healthcheck2:
-  # language:sh
+  # language: sh
   lvl2_double_quoted: "wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1"
-  # language:sh
-  lvl2_single_quoted: 'wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1'
-  # language:sh
+  # language: sh
+  lvl2_single_quoted: "wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1"
+  # language: sh
   lvl2_unquoted: wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1
 
 healthcheck3:
-    # language:sh
-    lvl2_unquoted: wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1
+  # language: sh
+  lvl2_unquoted: wget --no-verbose --spider --tries=1 http://localhost:7880 || exit 1
