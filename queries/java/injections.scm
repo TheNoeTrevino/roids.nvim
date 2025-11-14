@@ -61,7 +61,7 @@
     declarator: (variable_declarator 
       name: (identifier) 
       value: (string_literal 
-        (multiline_string_fragment) @injection.content)))
+        (multiline_string_fragment) @injection.content )))
   (#set! injection.combined)
   (#gsub! @injection.language "^//%s*language:%s*(%w+).*$" "%1")
   (#set! priority 201)

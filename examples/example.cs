@@ -1,18 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Text;
 using System.Linq;
+using System.Text;
 
 namespace ExampleApp
 {
-    /// <summary>
-    /// C# Injection Examples
-    /// Demonstrates potential language injection patterns for C# code
-    /// Supports raw string literals ("""), verbatim strings (@""), and regular strings
-    /// Note: Query file for C# injections needs to be created
-    /// </summary>
     public class InjectionExamples
     {
         // =====================================================================
@@ -234,7 +228,8 @@ namespace ExampleApp
         // =====================================================================
 
         // language: sql
-        private static readonly string GetUserByEmailQuery = @"
+        private static readonly string GetUserByEmailQuery =
+            @"
             SELECT
                 u.Id,
                 u.Username,
@@ -247,7 +242,8 @@ namespace ExampleApp
             AND u.DeletedAt IS NULL";
 
         // language: sql
-        private const string UpdateUserQuery = @"
+        private const string UpdateUserQuery =
+            @"
             UPDATE Users
             SET
                 Username = @Username,
@@ -257,7 +253,8 @@ namespace ExampleApp
             AND DeletedAt IS NULL";
 
         // language: sql
-        private static readonly string CreateTablesScript = @"
+        private static readonly string CreateTablesScript =
+            @"
             IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Users')
             BEGIN
                 CREATE TABLE Users (
@@ -293,7 +290,8 @@ namespace ExampleApp
             END";
 
         // language: json
-        private const string AppSettingsJson = @"{
+        private const string AppSettingsJson =
+            @"{
             ""Logging"": {
                 ""LogLevel"": {
                     ""Default"": ""Information"",
@@ -307,7 +305,8 @@ namespace ExampleApp
         }";
 
         // language: xml
-        private static readonly string WebConfigXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private static readonly string WebConfigXml =
+            @"<?xml version=""1.0"" encoding=""utf-8""?>
             <configuration>
                 <appSettings>
                     <add key=""Environment"" value=""Production"" />
@@ -351,12 +350,15 @@ namespace ExampleApp
                 SELECT CAST(SCOPE_IDENTITY() as int);
                 """;
 
-            ExecuteNonQuery(insertCommand, new
-            {
-                Username = username,
-                Email = email,
-                PasswordHash = passwordHash
-            });
+            ExecuteNonQuery(
+                insertCommand,
+                new
+                {
+                    Username = username,
+                    Email = email,
+                    PasswordHash = passwordHash,
+                }
+            );
         }
 
         public string GenerateEmailHtml(string username, string verificationLink)
@@ -421,29 +423,32 @@ namespace ExampleApp
         public class QueryRepository
         {
             // language: sql
-            public string FindAllQuery { get; } = """
-                SELECT * FROM Users
-                WHERE DeletedAt IS NULL
-                ORDER BY CreatedAt DESC
-                """;
+            public string FindAllQuery { get; } =
+                """
+                    SELECT * FROM Users
+                    WHERE DeletedAt IS NULL
+                    ORDER BY CreatedAt DESC
+                    """;
 
             // language: sql
-            public string FindByIdQuery { get; } = @"
+            public string FindByIdQuery { get; } =
+                @"
                 SELECT * FROM Users
                 WHERE Id = @Id
                 AND DeletedAt IS NULL";
 
             // language: sql
-            public string SearchUsersQuery { get; } = """
-                SELECT
-                    u.Id,
-                    u.Username,
-                    u.Email
-                FROM Users u
-                WHERE (u.Username LIKE @SearchTerm OR u.Email LIKE @SearchTerm)
-                AND u.DeletedAt IS NULL
-                ORDER BY u.Username
-                """;
+            public string SearchUsersQuery { get; } =
+                """
+                    SELECT
+                        u.Id,
+                        u.Username,
+                        u.Email
+                    FROM Users u
+                    WHERE (u.Username LIKE @SearchTerm OR u.Email LIKE @SearchTerm)
+                    AND u.DeletedAt IS NULL
+                    ORDER BY u.Username
+                    """;
         }
 
         // =====================================================================
