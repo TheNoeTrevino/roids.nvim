@@ -1,4 +1,7 @@
 # Roids
+> Development happens at https://git.thenoetrevino.com/noe.trevino/roids.nvim.
+> GitHub is a read-only mirror. Please open issues and pull requests there.
+
 A neovim plugin for language injection
 
 ## Installation
